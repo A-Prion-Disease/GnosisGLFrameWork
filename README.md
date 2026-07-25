@@ -10,8 +10,6 @@
 - TextureAtlas Capabilities (For Spritesheets),
 - Ability to stretch Width & Height (needs modification due to new texture system)
 
-- 
-- 
 - Dependencies:
 
 - glad (included in provisions),
