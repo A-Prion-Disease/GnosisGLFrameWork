@@ -13,5 +13,8 @@ void main(){
 
 int index = int(FragTexIndex);
 
-FragColor = mix(PointColor, texture(uniTexture[index], FragTexCords), mixRatio);
-	   }
+
+FragColor = mix(texture(uniTexture[index], FragTexCords), PointColor, mixRatio);
+
+	   	   }
+
