@@ -1,4 +1,4 @@
-I gave thematic names, will change most eventually ; this repository thus far is so heavily driven by 3rd party libraries that the main lang is c.
+I gave thematic names, will change most eventually ; this repository thus far is heavily driven by 3rd party libraries 
 
 To compile this shit make a directory inside Gnosis and run cmake.. and then make in it(the directory)
 
@@ -9,3 +9,13 @@ Dynamic Rendering using OpenGL,
 Usable Framework (Though not great)
 TextureAtlas Capabilities (For Spritesheets),
 Ability to stretch Width & Height (needs modification due to new texture system)
+
+
+
+Dependencies:
+
+glad (included in provisions),
+stb_image (included in provisions),
+
+SDL3 (Fetched by CMake)
+glm (Fetched by CMake)
