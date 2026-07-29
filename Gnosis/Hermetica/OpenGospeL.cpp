@@ -186,28 +186,28 @@ GLfloat MixRatio = 0; //temp
 
 Verts[0].Position = {x, y, z};
 Verts[0].Color = {1.0f, 1.0f, 1.0f, 0.2f};
-Verts[0].TextureCords = {X0, Y0};
+Verts[0].TextureCords = {X0, Y1};
 Verts[0].TextureID = TexID;
 Verts[0].mixRatio = MixRatio;
 
 
 Verts[1].Position = {x + W, y, z};
 Verts[1].Color = {0.0f, 0.0f, 0.4f , 0.2f };
-Verts[1].TextureCords = {X1, Y0};
+Verts[1].TextureCords = {X1, Y1};
 Verts[1].TextureID = TexID;
 Verts[1].mixRatio = MixRatio;
 
 
 Verts[2].Position = {x + W, y + H, z};
 Verts[2].Color = {0.0f, 0.4f, 0.0f , 0.2f };
-Verts[2].TextureCords = {X1, Y1};
+Verts[2].TextureCords = {X1, Y0};
 Verts[2].TextureID = TexID;
 Verts[2].mixRatio = MixRatio;
 
 
 Verts[3].Position = {x, y + H, z};
 Verts[3].Color = {0.4f, 0.0f, 0.0f, 0.2f};
-Verts[3].TextureCords = {X0, Y1};
+Verts[3].TextureCords = {X0, Y0};
 Verts[3].TextureID = TexID;
 Verts[3].mixRatio = MixRatio;
 
