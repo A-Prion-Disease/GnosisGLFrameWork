@@ -8,7 +8,7 @@
 - Dynamic Rendering using OpenGL,
 - Usable Framework (Though not great)
 - TextureAtlas Capabilities (For Spritesheets),
-- Ability to stretch Width & Height (needs modification due to new texture system)
+- Ability to stretch Width & Height
 
   **Dependencies:**
 
