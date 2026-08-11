@@ -24,6 +24,7 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(SDL3)
 endif()
 
+
 find_package(glm QUIET)
 
 if(NOT glm_FOUND)
@@ -36,7 +37,9 @@ FetchContent_MakeAvailable(glm)
 	endif()
 
 file(GLOB HermitWisdom
-	CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/Hermetica/*)
+	CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/Augury/Hermetica/*)
+
+file(GLOB Divination CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/Augury/*)
 
 
 #Inclusions of 3rd Part Libraries: (Difficult Ones as of now, maybe all in future)
@@ -52,7 +55,7 @@ target_include_directories(stb_img INTERFACE
 #   }
 
 
-add_library(Codex ${HermitWisdom})
+add_library(Codex ${HermitWisdom} ${Divination})
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/Crux
      DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
