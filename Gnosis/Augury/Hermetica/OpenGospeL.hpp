@@ -53,11 +53,14 @@ struct Quad{
 
 std::array<Vertex, 4> Verts;
 
+Quad(void);
+
 Quad(GLfloat x, GLfloat y, GLfloat z, GLfloat size, GLfloat TexID, GLfloat MixRatio);
 Quad(glm::vec3 XYZ, glm::vec3 Col, GLfloat size, GLfloat TexID);
 
 Quad(GLfloat x, GLfloat y, GLfloat z, GLfloat W, GLfloat H, GLfloat TexID, TextureRect& TSQR);
-	   };	
+Quad(GLfloat x, GLfloat y, GLfloat z, GLfloat Size, GLfloat TexId, TextureRect& TSQR);
+};	
 
 
 class GL_Renderer{

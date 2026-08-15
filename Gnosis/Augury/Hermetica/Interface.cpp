@@ -71,11 +71,41 @@ glUniform1iv(loc, 2, sampler);
 
 TextureRect testSQR = MagicBag.FindTexSqr("Gubram", 1, 1, 128);
 
+MapFile Testmap;
+
+Testmap.Width = 11; Testmap.Height = 3;
+Testmap.ReadMapFile("Crux/TestMap.txt", MapQuality::test);
+
+
+{
+int i = 0;	
+
+int w = 0;
+
+while( i < Testmap.tiles.size() ){
+
+
+
+if(!(i > Testmap.tiles.size())){
+std::cout << Testmap.tiles.at(i) << " ";
+
+w++;
+i++;
+
+if(w >= Testmap.Width){
+	std::cout << "\n";
+	w = 0;
+			
+		     }
+		  	 	 }
+				}
+
+}
 
 while(Running){
 
 
-Quad testQuad(x, -0.5f, 1.0f, 0.5f, 0.5f, 0.0f, testSQR);
+Quad testQuad(x, -0.5f, 1.0f, 0.3f, 0.5f, 0.0f, testSQR);
 
 
 	glClearColor(0.0f, 0.5f, 0.0f, 1.0f);

@@ -8,10 +8,10 @@
 class TileGrid{
 
 float TileSize;
-float CenterX, CenterY; // Which row and col of the map is in the center of view (with some offset to maintain a less blocky quality)
+float COS_X, COS_Y; //CameraOffset
 
 int TileDensity; //(How many tiles in a row and col)
-int VisBotRight;
+int VTL, VTR, VBL, VBR; //Visible top or bottom : left or right
 
 
 MapFile& CurrentMap;
@@ -21,7 +21,7 @@ std::vector<int> AllTiles; // tiles comprising the map
 
 	public:
 
-TileGrid(MapFile& CurrentMap, float CenterX, float CenterY, float TileSize, int TileDensity);
+TileGrid(MapFile& CurrentMap, float COS_X, float COS_Y, float TileSize, int TileDensity);
 
 void ShiftGrid(int X_Dif, int Y_Dif); 
 
