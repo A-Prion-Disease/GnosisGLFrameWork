@@ -1,28 +1,42 @@
 #include "InternalObj.hpp"
 
 
-TileGrid::TileGrid(MapFile& CurrentMap, float COS_X, float COS_Y, float TileSize, int TileDensity) 
-:  CurrentMap(CurrentMap), COS_X(COS_X), COS_Y(COS_Y), TileSize(TileSize), TileDensity(TileDensity){
 
+
+TileGrid::TileGrid(float COS_X, float COS_Y, int TileSize, int TileDensity) 
+
+:  COS_X(COS_X), COS_Y(COS_Y), TileSize(TileSize), TileDensity(TileDensity){
 
 VTL = 0; //Initally : maybe i'll make a variation of this func which controls the position of the viewing upon init	
 VTR = (TileDensity - 1);
 VBL = ((TileDensity * TileDensity) - (TileDensity - 1));
 VBR = ((TileDensity * TileDensity) - 1); //off one cause vector starts at 0
- // Unsure of how to use these 
 
-this->Render();
+
+}//TileGrid Construct
+
+void TileGrid::BindMap(MapFile& CurrentMap){
 
 this->AllTiles = CurrentMap.tiles;
 
 
-for(int i = 0; i < VBR; i++){
 
-this->VisibleTiles.at(i) = AllTiles.at(i);
+this->VisibleTiles = AllTiles;
 
-				    } //Starts at the topright corner of the Current map
+while(VisibleTiles.size() > (VBR - 1)){
+VisibleTiles.pop_back();
+				 }
 
-}//TileGrid Construct
+					   }
+
+void TileGrid::AddTexture(Image TileMapTexture, int HIT, int WIT){
+
+TMT NewTex(TileMapTexture, HIT, WIT);
+
+TileMapTextures.at(How_Many_Textures) = NewTex;
+How_Many_Textures++;
+
+						    }
 
 void TileGrid::ShiftGrid( int X_Dif, int Y_Dif){
 	
@@ -86,39 +100,63 @@ if((X_Dif && Y_Dif) == 0){
 
 					       }
 
-void TileGrid::Render(void){
+void TileGrid::Render(GL_Renderer& GLR, ResourceSack& RS, MapFile& CurrentMap){
 
 	int tx = 0;
 	int ty = 0; //tx incremented each tile and ty incremented for each time tx > TileDensity and then tx = 0;
-	int i = 0;
+		    //
 
-	Quad CurTile; //Current_Tile
-	TextureRect CurTexRect; // Current TextureRect
+	int TexX = 0; //SourceTileX
+	int TexY = 0; //SourceTileY
+       	int TexNumb = 0;
+
+	int loop_count = 0;
+for(int i : VisibleTiles){
+loop_count++;
+TexX = i;
+std::cout << "i: " << i << "\n";
+tx++; 
+std::cout << "tx: " << tx << "\n";
+std::cout << "ty: " << ty << "\n";
+
+std::cout << "HIT: " << TileMapTextures.at(TexNumb).HeightInTiles << "\n";
+std::cout << "LIT: " << TileMapTextures.at(TexNumb).WidthInTiles << "\n";
+
+while(TexX > (TileMapTextures.at(TexNumb).HeightInTiles * TileMapTextures.at(TexNumb).WidthInTiles)){
+TexNumb++;
+TexX -= (TileMapTextures.at(TexNumb - 1).HeightInTiles *  TileMapTextures.at(TexNumb - 1).WidthInTiles);
+ 												 }
+
+while(TexX > TileMapTextures.at(TexNumb).WidthInTiles){
+TexY++;
+
+TexX -= TileMapTextures.at(TexNumb).WidthInTiles;
+						      }
+
+while(tx > TileDensity){
+ty++; 
+tx -= TileDensity;
+ 		       }
+
+while(loop_count < VisibleTiles.size()){
+CurTexRect = RS.FindTexSqr(TileMapTextures.at(TexNumb), TexX, TexY);//TexX, //TexY);
+CurTile = Quad( -tx * 0.1f, -ty / 0.1f, 1.0f, TileSize , 1 /*TileMapTextures.at(TexNumb).img.GL_ID*/, CurTexRect);
+							//Not the gl_id; is different thing needed
+GLR.Push_Quad(CurTile);
 
 
-	CurTile = Quad(tx * TileSize, ty * TileSize, 0.1f, TileSize, 0, CurTexRect);
-	
-	    while(i < VisibleTiles.size()){
+//Testing:
+/*
+CurTexRect = RS.FindTexSqr("test", 0, 0);
+	CurTile = Quad(tx * 0.025, 0, 0.9f, TileSize, 1, CurTexRect);
+GLR.Push_Quad(CurTile);
+*/
 
-	    if(!(i < VisibleTiles.size())){
-		i++;
-		tx++;
-		if(tx > (TileDensity - 1)){//if_2
-		ty++;
-		tx = 0;
-		 			  }//if_2
+break;
+				    }
+			  }
+}
 
-					  }//if_1
 
-		switch(VisibleTiles.at(i)){
-			case 1:{
-			
-				
 
-			break;
-			       }
-		   	   
-				  	   }//switch
-
-				       }//While_Loop
-			    }
+						

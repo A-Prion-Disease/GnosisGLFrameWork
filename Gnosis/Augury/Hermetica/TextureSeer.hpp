@@ -4,12 +4,12 @@
 		       
 struct Image{
 
-GLuint GL_ID;
-
+GLuint GL_ID, TileSize;
 
 GLint width, height;
 
-Image(const std::string& TexturePath, bool alpha);
+Image(void){};
+Image(const std::string& TexturePath, bool alpha, unsigned int TileSize);
 
 	    };
 

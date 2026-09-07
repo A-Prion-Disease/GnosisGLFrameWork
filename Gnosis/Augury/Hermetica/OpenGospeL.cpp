@@ -2,6 +2,9 @@
 #include "OpenGospeL.hpp"
 
 
+TMT::TMT(Image IMG, int HIT, int WIT) : img(IMG), HeightInTiles(HIT), WidthInTiles(WIT){
+
+                                                                                       }
 
 
 
@@ -29,10 +32,10 @@ Shader ResourceSack::FindShader(std::string ShaderName){
 						       }
 
 
-Image ResourceSack::MakeTexture(const std::string& ImgPath, std::string TextureName,
+Image ResourceSack::MakeTexture(const std::string& ImgPath, std::string TextureName, unsigned int TileSize,
 								bool alpha){
 
-Image NewImg(ImgPath, alpha);
+Image NewImg(ImgPath, alpha, TileSize);
 
 Textures.emplace(TextureName, NewImg);
 
@@ -43,6 +46,22 @@ Image ResourceSack::FindTexture(std::string TexName){
 
 return Textures.at(TexName);
 						    }
+
+TextureRect ResourceSack::FindTexSqr(std::string TexAtlas, int x, int y){
+
+Image atlas = this->FindTexture(TexAtlas);
+
+TextureRect texSQR;
+
+texSQR.LIT = atlas.width /atlas.TileSize;
+
+texSQR.HIT = atlas.height / atlas.TileSize;
+
+texSQR.XSlot = x;
+texSQR.YSlot = (y - 1);
+
+return texSQR;
+									}
 
 TextureRect ResourceSack::FindTexSqr(std::string TexAtlas, int x, int y, int tileSize){
 
@@ -62,7 +81,19 @@ return texSQR;
 
 
 
-									 		 } 
+									 		 }
+TextureRect ResourceSack::FindTexSqr(TMT TexMapTex, int x, int y){
+
+TextureRect texSQR;
+
+texSQR.LIT = TexMapTex.WidthInTiles;
+texSQR.HIT = TexMapTex.HeightInTiles;
+
+texSQR.XSlot = x;
+texSQR.YSlot = (y - 1);
+
+return texSQR;
+							         }
 
 
 

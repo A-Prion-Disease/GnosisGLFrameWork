@@ -17,6 +17,14 @@ int XSlot, YSlot;
 
 		    };
 
+struct TMT{ //TextureMapTexture
+
+Image img;
+int HeightInTiles, WidthInTiles;
+
+TMT(void){}; //default constructer
+TMT(Image IMG, int HIT, int WIT);
+          };
 
 
 //GL_STUFF
@@ -53,7 +61,7 @@ struct Quad{
 
 std::array<Vertex, 4> Verts;
 
-Quad(void);
+Quad(void){}
 
 Quad(GLfloat x, GLfloat y, GLfloat z, GLfloat size, GLfloat TexID, GLfloat MixRatio);
 Quad(glm::vec3 XYZ, glm::vec3 Col, GLfloat size, GLfloat TexID);
@@ -83,6 +91,8 @@ GLuint IndicesCount = 0;
 
 GLuint Tex[20] = {0};
 
+GL_Renderer(void){}
+
 void Init(void);
 
 void Push_Quad(Quad& Q);
@@ -106,12 +116,16 @@ Shader MakeShader(std::string VertShaderPath, std::string FragShaderPath, std::s
 
 Shader FindShader(std::string ShaderName);
 
-Image MakeTexture(const std::string& ImgPath, std::string TextureName, 
-							bool alpha = true );
+Image MakeTexture(const std::string& ImgPath, std::string TextureName,
+	       	unsigned int TileSize, bool alpha = true);
+
 Image FindTexture(std::string TexName);
+
+TextureRect FindTexSqr(std::string TexAtlas, int x, int y); // is this needed????
 
 TextureRect FindTexSqr(std::string TexAtlas, int x, int y, int tileSize);
 
+TextureRect FindTexSqr(TMT TexMapTex, int x, int y);
 
 		  };
 

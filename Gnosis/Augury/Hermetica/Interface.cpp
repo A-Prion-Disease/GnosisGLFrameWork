@@ -1,6 +1,7 @@
 #include "Interface.hpp"
 
 float x = -0.8f;
+float y = 0.0f;
 
 INTERFACE::INTERFACE(int Width, int Height) :
 Window_W(Width), Window_H(Height),Logical_W(Width), Logical_H(Height){
@@ -57,7 +58,9 @@ MagicBag.MakeShader("Crux/Perception/Vert1.shader",
 
 GL_Renderer GLR;
 
-Game Test(GLR, this->MagicBag);
+TileGrid TG;
+
+Game Test(GLR, this->MagicBag, TG);
 
 glUseProgram(MagicBag.FindShader("Shader1").GL_ID);
 auto loc = glGetUniformLocation(MagicBag.FindShader("Shader1").GL_ID, "uniTexture");
@@ -73,7 +76,7 @@ TextureRect testSQR = MagicBag.FindTexSqr("Gubram", 1, 1, 128);
 
 MapFile Testmap;
 
-Testmap.Width = 11; Testmap.Height = 3;
+Testmap.Width = 5; Testmap.Height = 5;
 Testmap.ReadMapFile("Crux/TestMap.txt", MapQuality::test);
 
 
@@ -101,25 +104,26 @@ if(w >= Testmap.Width){
 				}
 
 }
+//glEnable(GL_DEPTH_TEST);
+//glDepthRangef(-0.9f, 1.9f);
 
 while(Running){
 
+//glCullFace(GL_BACK);
 
-Quad testQuad(x, -0.5f, 1.0f, 0.3f, 0.5f, 0.0f, testSQR);
+
+Quad testQuad(x, y, 1.0f, 0.3f, 0.5f, 0.0f, testSQR);
 
 
 	glClearColor(0.0f, 0.5f, 0.0f, 1.0f);
 
 
-
 	glClear(GL_COLOR_BUFFER_BIT);
 
-	GLR.Push_Quad(testQuad);
-//	GLR.Push_Quad(BestQuad);
+        GLR.Push_Quad(testQuad);
 
-//	MagicBag.FindShader("Shader1").setInt("uniTexture", 0);
-
-	GLR.Render();
+	
+Test.Render();
 
 	SDL_GL_SwapWindow(Window);
 
@@ -158,11 +162,17 @@ while(SDL_PollEvent(&event)){
 
 	case SDL_EVENT_KEY_DOWN:{
 	
+	if(keyboard_handle[SDL_SCANCODE_W]){
+	y += 0.033f;
+					   }		
 	if(keyboard_handle[SDL_SCANCODE_A]){
-	x -= 0.1f;
+	x -= 0.033f;
+					   }
+	if(keyboard_handle[SDL_SCANCODE_S]){
+	y -= 0.033f;
 					   }
 	if(keyboard_handle[SDL_SCANCODE_D]){
-	x += 0.1f;
+	x += 0.033f;
 					   }
 	break;
 				}

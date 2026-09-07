@@ -5,10 +5,11 @@
 
 #include <glad/gl.h> //OpenGL
 
-Image::Image(const std::string& TexturePath, bool alpha){
+Image::Image(const std::string& TexturePath, bool alpha, unsigned int TileSize){
 	
 	int nr_channels;
 	unsigned char* data;
+
 
 stbi_set_flip_vertically_on_load(1);
 
@@ -23,6 +24,13 @@ glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+if(TileSize == 0){
+this->TileSize = width;
+                 }
+else if(TileSize > 0){
+this->TileSize = TileSize;
+		     }
 
 if(!alpha){
 glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, width, height,
