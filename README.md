@@ -1,3 +1,7 @@
+
+Currently refactoring; all subject to change
+
+
 - I gave thematic names, will change most eventually ; this repository thus far is heavily driven by 3rd party libraries 
 
 - To compile make a directory inside Gnosis and run ' cmake.. ' and then 'make' inside the directory from your terminal
